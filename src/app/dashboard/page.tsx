@@ -1,6 +1,7 @@
 'use client';
 import useDataStream from "@/hooks/useDataSream";
 import PerformanceMonitor from "@/components/ui/PerformanceMonitor";
+import LineChart from "@/components/charts/LineChart";
 
 export default function DashboardPage() {
    const { data } = useDataStream(10_000);
@@ -10,9 +11,7 @@ export default function DashboardPage() {
       {/* Charts Area */}
       <section className="border rounded-lg p-4">
         <h2 className="font-semibold text-lg mb-2">Real-time Charts</h2>
-        <div className="h-[320px] flex items-center justify-center text-sm text-gray-500">
-          {data.length.toLocaleString()} points streaming…
-        </div>
+        <LineChart data={data} />
       </section>
 
       {/* Controls */}
