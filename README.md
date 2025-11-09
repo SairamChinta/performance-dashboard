@@ -1,43 +1,48 @@
-Performance-Critical Real-Time Data Visualization Dashboard
+# Performance-Critical Real-Time Data Visualization Dashboard
 
-A high-performance real-time dashboard built with Next.js 14 (App Router) and TypeScript, capable of rendering and updating 10,000+ live data points at 60 FPS — with no chart libraries and zero UI lag.
+A **high-performance real-time dashboard** built with **Next.js 14 (App Router)** and **TypeScript**, capable of rendering and updating over **10,000 live data points at 60 FPS** — with **no chart libraries** and zero UI lag.  
 
-This project demonstrates mastery in React performance, Canvas rendering, and Next.js modern architecture.
+This project demonstrates expertise in **React performance**, **Canvas rendering**, and **Next.js modern architecture**.
 
-Quick Start
-1️.Clone & Install
+---
+
+## Quick Start
+
+### 1. Clone & Install
+
+```bash
 git clone https://github.com/SairamChinta/performance-dashboard.git
 cd performance-dashboard
 npm install
 
-2️.Run Development Server
+2. Run Development Server
+
 npm run dev
+Visit: http://localhost:3000/dashboard
 
+3. Production Build
 
-Visit 👉 http://localhost:3000/dashboard
-
-3️.Production Build
 npm run build
 npm start
 
 Overview
-
 This dashboard continuously streams simulated time-series data and renders it in real time using Canvas for high-speed visualization and SVG overlays for crisp UI elements like axes and labels.
 
-Built entirely from scratch, without Chart.js, D3, or external charting libraries — proving true frontend performance engineering.
+Built entirely from scratch, without Chart.js, D3, or any external charting library — demonstrating true frontend performance engineering.
 
 Key Features
 Feature	Description
->60 FPS Rendering	Smooth, GPU-accelerated updates with requestAnimationFrame
->10,000+ Data Points	Real-time streaming and rendering every 100ms
->Pan & Zoom Interactivity	Explore data dynamically with drag and scroll
->Auto-Follow Mode	Chart automatically follows live updates, even after zoom/pan
->5s Auto Resume	Automatically resumes “Follow Live” mode after inactivity
->Canvas + SVG Hybrid	Canvas for performance, SVG for precision text & lines
->Performance Monitor	Displays live FPS & memory stability
->Memory Safe	No leaks — tested for hours of continuous updates
->Responsive UI	Adapts to any screen size seamlessly
->Tech Stack
+60 FPS Rendering	Smooth GPU-accelerated updates using requestAnimationFrame
+10,000+ Data Points	Real-time streaming and rendering every 100ms
+Pan & Zoom Interactivity	Explore data dynamically with drag and scroll
+Auto-Follow Mode	Automatically follows live data updates
+5s Auto Resume	Automatically resumes "Follow Live" mode after inactivity
+Canvas + SVG Hybrid	Canvas for speed, SVG for crisp UI overlays
+Performance Monitor	Displays FPS and memory metrics in real time
+Memory Safe	No leaks, tested for continuous long sessions
+Responsive UI	Adapts to all screen sizes seamlessly
+
+Tech Stack
 Layer	Technology
 Framework	Next.js 14 (App Router)
 Language	TypeScript
@@ -48,100 +53,86 @@ Data Flow	Custom Hooks (no external libs)
 Deployment	Vercel
 Performance Profiling	React Profiler, Chrome DevTools
 
->Architecture Overview
->Hybrid Rendering Architecture
+Architecture Overview
+Hybrid Rendering Architecture
+css
+Copy code
 React  →  Manages state, events, and interactivity
-Canvas →  Draws 10k+ data points at 60fps
-SVG    →  Displays crisp axes, labels, overlays
+Canvas →  Renders 10k+ data points at 60fps
+SVG    →  Displays crisp axes, labels, and overlays
+Architecture Principles
+React handles state and user interactions only (no large DOM updates).
 
+Canvas draws data directly to GPU layers for high frame rates.
 
-React is used only for logic & UI (no heavy re-renders)
+SVG layers handle axes, grid lines, and textual overlays.
 
-Canvas handles all pixel drawing — bypassing the VDOM for performance
-
-SVG layers handle text and sharp visual overlays
-
-Data stream & rendering are fully decoupled (concurrent-friendly)
+Data generation, rendering, and viewport transformations are fully decoupled for performance and scalability.
 
 Performance Optimizations
 Optimization	Technique
-Frame Rendering	requestAnimationFrame()
-Data Handling	Sliding window (no array growth)
-Re-renders	useMemo, useCallback, and React.memo
+Frame Rendering	requestAnimationFrame() loop for 60 FPS sync
+Data Handling	Sliding window model to prevent memory growth
+Re-renders	useMemo, useCallback, React.memo for stability
 Canvas Scaling	Uses devicePixelRatio for crisp HD rendering
-Viewport	Dynamic fitting + ResizeObserver
-Auto Follow	Intelligent timer-based resume after pan/zoom
-Memory Management	Cleanup via useEffect + timer cancellation
-Responsiveness	Container-based width/height observation
+Viewport	Dynamic fit via ResizeObserver
+Auto Follow	5s inactivity-based resume timer after user interaction
+Memory Management	Cleanup via useEffect and ref-safe timeouts
+Responsiveness	Real-time container-based resizing
 
 Key Components
 File	Description
-LineChart.tsx	Core canvas renderer for 10k+ points
-useDataStream.ts	Generates simulated real-time data
-useChartRenderer.ts	Optimized canvas drawing logic
-usePerformanceMonitor.ts	Live FPS tracker
-TimeRangeSelector.tsx	Range & follow-live controls
-DataTable.tsx	Virtualized table for large datasets
+LineChart.tsx	Core canvas renderer handling 10k+ points
+useDataStream.ts	Generates live simulated data stream
+useChartRenderer.ts	Optimized rendering hook for Canvas
+usePerformanceMonitor.ts	FPS and memory monitor hook
+TimeRangeSelector.tsx	Time range controls and Follow Live toggle
+DataTable.tsx	Virtualized data table for large sets
+
 Core Concepts
-1️.React Manages State, Canvas Does the Drawing
+1. React Manages State, Canvas Does the Drawing
+React controls data and interactivity, but does not render 10,000 DOM elements.
+Heavy drawing is handled by Canvas via the 2D API for maximum performance.
 
-React controls data & user actions, but never re-renders 10k elements.
-All heavy work is done directly on <canvas> via the 2D context API.
+2. Real-Time Data Stream
+New data points arrive every 100ms, and old points are removed, creating a sliding window of 10,000 points.
+This ensures constant memory usage and real-time updates.
 
-2️.Real-Time Data Stream
+3. Viewport Transformation
+Functions like fitViewport, pan, and zoomAt map real-world time and values into pixel coordinates, enabling smooth zooming and panning.
 
-New data every 100ms → old data removed → sliding window of 10,000 points.
-This keeps memory constant while simulating a real feed.
+4. Auto-Follow Mechanism
+When users interact (pan or zoom):
 
-3️.Viewport Transformation
-
-fitViewport, pan, and zoomAt map real-world data to pixel coordinates for smooth interactivity.
-
-4️.Auto-Follow Mechanism
-
-If user pans/zooms:
-
+ts
+Copy code
 setManual(true);
 setTimeout(() => setManual(false), 5000);
+After 5 seconds of inactivity, the chart automatically resumes “Follow Live” mode — similar to TradingView behavior.
 
-
-After 5s → chart auto-resumes live following. Just like TradingView.
-
-🧩 Performance Validation
-🧪 Benchmark Results
+Performance Validation
+Benchmark Results
 Metric	Target	Achieved
-FPS	60	✅ 60 FPS steady
-Latency	<100ms	✅ ~45ms
-Memory Growth	<1MB/hour	✅ 0.6MB/hour
-Data Points	10,000	✅ 10,000+ stable
-Frame Drops	None	✅ Zero drops over 1hr
-📊 Performance Testing Steps
-
-Open Chrome DevTools → Performance Tab
-
-Start recording and interact (zoom, pan, follow)
-
-Observe:
-
-FPS graph → steady near 60
-
-Memory graph → flat
-
-No main-thread blocking
-
-Stop → see smooth frame timings under 16ms
-
+FPS	60	60 FPS steady
+Latency	<100ms	~45ms
+Memory Growth	<1MB/hour	0.6MB/hour
+Data Points	10,000	Stable at 10,000+
+Frame Drops	None	Zero over 1 hour run
 
 Folder Structure
+pgsql
+Copy code
 performance-dashboard/
 ├── app/
 │   ├── dashboard/
 │   │   ├── page.tsx
 │   │   └── layout.tsx
 │   ├── api/
-│   │   └── data/route.ts
+│   │   └── data/
+│   │       └── route.ts
 │   ├── globals.css
 │   └── layout.tsx
+│
 ├── components/
 │   ├── charts/
 │   │   ├── LineChart.tsx
@@ -152,30 +143,27 @@ performance-dashboard/
 │   │   └── PerformanceMonitor.tsx
 │   └── providers/
 │       └── DataProvider.tsx
+│
 ├── hooks/
 │   ├── useDataStream.ts
 │   ├── useChartRenderer.ts
 │   ├── usePerformanceMonitor.ts
 │   └── useVirtualization.ts
+│
 ├── lib/
 │   ├── dataGenerator.ts
 │   ├── canvasUtils.ts
 │   ├── performanceUtils.ts
 │   ├── viewport.ts
 │   └── types.ts
+│
 ├── public/
+│   └── screenshots/
+│       ├── chart.png
+│       ├── stats.png
+│       └── table.png
+│
 ├── README.md
 ├── PERFORMANCE.md
 ├── next.config.js
 └── tsconfig.json
-
-Screenshots
-
-
-	
-	
-Core Web Vitals
-Metric	Result
-LCP	✅ < 1.2s
-CLS	✅ 0
-FID	✅ < 100ms
