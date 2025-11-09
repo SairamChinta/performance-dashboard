@@ -24,7 +24,7 @@ Visit: http://localhost:3000/dashboard
 
 npm run build
 npm start
-
+```bash
 Overview
 This dashboard continuously streams simulated time-series data and renders it in real time using Canvas for high-speed visualization and SVG overlays for crisp UI elements like axes and labels.
 
@@ -120,8 +120,7 @@ Data Points	10,000	Stable at 10,000+
 Frame Drops	None	Zero over 1 hour run
 
 Folder Structure
-pgsql
-Copy code
+```bash
 performance-dashboard/
 ├── app/
 │   ├── dashboard/
@@ -167,3 +166,4 @@ performance-dashboard/
 ├── PERFORMANCE.md
 ├── next.config.js
 └── tsconfig.json
+```bash
