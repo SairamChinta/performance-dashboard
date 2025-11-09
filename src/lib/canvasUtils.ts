@@ -1,7 +1,12 @@
 import type { DataPoint } from "./types";
+import { Viewport } from "./viewport";
 
 export function clearCanvas(ctx: CanvasRenderingContext2D, w: number, h: number) {
-  ctx.clearRect(0, 0, w, h);
+ const ratio = window.devicePixelRatio || 1;
+  ctx.save();
+  ctx.setTransform(1, 0, 0, 1, 0, 0);   // reset any existing transform
+  ctx.clearRect(0, 0, w * ratio, h * ratio); // clear full pixel buffer
+  ctx.restore();
 }
 
 export function strokeLine(
@@ -36,4 +41,18 @@ export function mapToPixels(
     x: ((d.t - xMin) / (xMax - xMin)) * width,
     y: height - ((d.v - yMin) / (yMax - yMin)) * height,
   }));
+}
+export function mapUsingViewport(
+  data: DataPoint[], w: number, h: number, vp: Viewport
+) {
+  const { xMin, xMax, yMin, yMax } = vp;
+  const xs = xMax - xMin || 1;
+  const ys = yMax - yMin || 1;
+  const pts = new Array(data.length);
+  for (let i = 0; i < data.length; i++) {
+    const x = ((data[i].t - xMin) / xs) * w;
+    const y = h - ((data[i].v - yMin) / ys) * h;
+    pts[i] = { x, y };
+  }
+  return pts;
 }
