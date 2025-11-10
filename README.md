@@ -13,17 +13,17 @@ git clone https://github.com/SairamChinta/performance-dashboard.git
 cd performance-dashboard
 npm install
 
-### 2. Run Development Server
+2. Run Development Server
+
 npm run dev
 
-### 3.Then open your browser and visit:
-👉 http://localhost:3000/dashboard
+3. Production Build
 
 ### 4.Production Build
 npm run build
 npm start
-
-### Overview
+```bash
+Overview
 This dashboard continuously streams simulated time-series data and renders it in real time using Canvas for high-speed visualization and SVG overlays for crisp UI elements like axes and labels.
 
 Built entirely from scratch, without Chart.js, D3, or any external charting library — demonstrating true frontend performance engineering.
@@ -53,12 +53,12 @@ Performance Profiling	React Profiler, Chrome DevTools
 
 ### Architecture Overview
 Hybrid Rendering Architecture
-css
-Copy code
+
 React  →  Manages state, events, and interactivity
 Canvas →  Renders 10k+ data points at 60fps
 SVG    →  Displays crisp axes, labels, and overlays
-Architecture Principles
+
+### Architecture Principles
 React handles state and user interactions only (no large DOM updates).
 
 Canvas draws data directly to GPU layers for high frame rates.
@@ -115,7 +115,7 @@ Memory Growth	<1MB/hour	0.6MB/hour
 Data Points	10,000	Stable at 10,000+
 Frame Drops	None	Zero over 1 hour run
 
-Folder Structure
+### Folder Structure
 ```bash
 performance-dashboard/
 ├── app/
