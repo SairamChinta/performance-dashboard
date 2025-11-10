@@ -9,28 +9,26 @@ This project demonstrates expertise in **React performance**, **Canvas rendering
 ## Quick Start
 
 ### 1. Clone & Install
-
-```bash
 git clone https://github.com/SairamChinta/performance-dashboard.git
 cd performance-dashboard
 npm install
 
-2. Run Development Server
-
+### 2. Run Development Server
 npm run dev
-Visit: http://localhost:3000/dashboard
 
-3. Production Build
+### 3.Then open your browser and visit:
+👉 http://localhost:3000/dashboard
 
+### 4.Production Build
 npm run build
 npm start
-```bash
-Overview
+
+### Overview
 This dashboard continuously streams simulated time-series data and renders it in real time using Canvas for high-speed visualization and SVG overlays for crisp UI elements like axes and labels.
 
 Built entirely from scratch, without Chart.js, D3, or any external charting library — demonstrating true frontend performance engineering.
 
-Key Features
+### Key Features
 Feature	Description
 60 FPS Rendering	Smooth GPU-accelerated updates using requestAnimationFrame
 10,000+ Data Points	Real-time streaming and rendering every 100ms
@@ -42,7 +40,7 @@ Performance Monitor	Displays FPS and memory metrics in real time
 Memory Safe	No leaks, tested for continuous long sessions
 Responsive UI	Adapts to all screen sizes seamlessly
 
-Tech Stack
+### Tech Stack
 Layer	Technology
 Framework	Next.js 14 (App Router)
 Language	TypeScript
@@ -53,7 +51,7 @@ Data Flow	Custom Hooks (no external libs)
 Deployment	Vercel
 Performance Profiling	React Profiler, Chrome DevTools
 
-Architecture Overview
+### Architecture Overview
 Hybrid Rendering Architecture
 css
 Copy code
@@ -69,7 +67,7 @@ SVG layers handle axes, grid lines, and textual overlays.
 
 Data generation, rendering, and viewport transformations are fully decoupled for performance and scalability.
 
-Performance Optimizations
+### Performance Optimizations
 Optimization	Technique
 Frame Rendering	requestAnimationFrame() loop for 60 FPS sync
 Data Handling	Sliding window model to prevent memory growth
@@ -80,7 +78,7 @@ Auto Follow	5s inactivity-based resume timer after user interaction
 Memory Management	Cleanup via useEffect and ref-safe timeouts
 Responsiveness	Real-time container-based resizing
 
-Key Components
+### Key Components
 File	Description
 LineChart.tsx	Core canvas renderer handling 10k+ points
 useDataStream.ts	Generates live simulated data stream
@@ -89,7 +87,7 @@ usePerformanceMonitor.ts	FPS and memory monitor hook
 TimeRangeSelector.tsx	Time range controls and Follow Live toggle
 DataTable.tsx	Virtualized data table for large sets
 
-Core Concepts
+### Core Concepts
 1. React Manages State, Canvas Does the Drawing
 React controls data and interactivity, but does not render 10,000 DOM elements.
 Heavy drawing is handled by Canvas via the 2D API for maximum performance.
@@ -104,13 +102,11 @@ Functions like fitViewport, pan, and zoomAt map real-world time and values into 
 4. Auto-Follow Mechanism
 When users interact (pan or zoom):
 
-ts
-Copy code
 setManual(true);
 setTimeout(() => setManual(false), 5000);
 After 5 seconds of inactivity, the chart automatically resumes “Follow Live” mode — similar to TradingView behavior.
 
-Performance Validation
+### Performance Validation
 Benchmark Results
 Metric	Target	Achieved
 FPS	60	60 FPS steady
