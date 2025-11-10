@@ -13,17 +13,14 @@ git clone https://github.com/SairamChinta/performance-dashboard.git
 cd performance-dashboard
 npm install
 
-2. Run Development Server
-
+### 2. Run Development Server
 npm run dev
 
-3. Production Build
-
-### 4.Production Build
+### 3. Production Build
 npm run build
 npm start
-```bash
-Overview
+
+### Overview
 This dashboard continuously streams simulated time-series data and renders it in real time using Canvas for high-speed visualization and SVG overlays for crisp UI elements like axes and labels.
 
 Built entirely from scratch, without Chart.js, D3, or any external charting library — demonstrating true frontend performance engineering.
@@ -162,4 +159,3 @@ performance-dashboard/
 ├── PERFORMANCE.md
 ├── next.config.js
 └── tsconfig.json
-```bash
