@@ -1,66 +1,92 @@
+"use client";
+
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { FaGithub } from "react-icons/fa";
+import { HiOutlineArrowUpRight } from "react-icons/hi2";
+import { RiBarChartBoxLine, RiDashboardLine, RiStackLine } from "react-icons/ri";
 import styles from "./page.module.css";
 
 export default function Home() {
+  const router = useRouter();
+
   return (
-    <div className={styles.page}>
+    <div className={styles.container}>
+      {/* HEADER */}
+      <header className={styles.header}>
+        <div className={styles.logoArea}>
+          <Image src="/next.svg" alt="Logo" width={28} height={28} />
+          <h1 className={styles.brand}>Performance Dashboard</h1>
+        </div>
+
+        <div className={styles.links}>
+          <a
+            href="https://github.com/SairamChinta?tab=repositories"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.linkCard}
+          >
+            <FaGithub size={16} />
+            <span className={styles.linkLabel}>GitHub</span>
+            <HiOutlineArrowUpRight size={14} />
+          </a>
+          <a
+            href="https://sairam-s-portfolio.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.linkCard}
+          >
+            <RiDashboardLine size={16} />
+            <span className={styles.linkLabel}>Portfolio</span>
+            <HiOutlineArrowUpRight size={14} />
+          </a>
+        </div>
+      </header>
+
+      {/* MAIN */}
       <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
+        <section className={styles.hero}>
+          <h1 className={styles.title}>Real-Time Performance Monitoring Simplified</h1>
+          <p className={styles.subtitle}>
+            A modern analytics dashboard that updates live — built with{" "}
+            <strong>Next.js 14</strong> and <strong>TypeScript</strong>, designed for
+            performance-critical visualization.
           </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+
+          <button
+            className={styles.cta}
+            onClick={() => router.push("/dashboard")}
           >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+            Go to Dashboard
+            <HiOutlineArrowUpRight size={18} />
+          </button>
+        </section>
+
+        {/* FEATURES */}
+        <section className={styles.features}>
+          <div className={styles.featureCard}>
+            <RiBarChartBoxLine size={28} />
+            <h3>Live Metrics</h3>
+            <p>Stream and visualize real-time data efficiently with optimized state updates.</p>
+          </div>
+
+          <div className={styles.featureCard}>
+            <RiDashboardLine size={28} />
+            <h3>Optimized Insights</h3>
+            <p>Handle high-volume data with React concurrency and frame throttling.</p>
+          </div>
+
+          <div className={styles.featureCard}>
+            <RiStackLine size={28} />
+            <h3>Scalable Architecture</h3>
+            <p>TypeScript-first modular structure for clarity and scalability.</p>
+          </div>
+        </section>
       </main>
+
+      <footer className={styles.footer}>
+        <p>© {new Date().getFullYear()} Performance Dashboard • Sairam Chinta</p>
+      </footer>
     </div>
   );
 }
