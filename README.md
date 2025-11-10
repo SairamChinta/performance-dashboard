@@ -4,7 +4,8 @@ A **high-performance real-time dashboard** built with **Next.js 14 (App Router)*
 
 This project demonstrates expertise in **React performance**, **Canvas rendering**, and **Next.js modern architecture**.
 
----
+## Live Link
+https://performance-dashboard-rho-bay.vercel.app/
 
 ## Quick Start
 
